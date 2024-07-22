@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
+using System.IO;
 
 public static class Build
 {
@@ -26,6 +27,10 @@ public static class Build
                 Debug.Log("Build failed");
                 break;
         }
+
+        // Create empty file called test
+        string filePath = "Builds/Windows/test.txt";
+        File.Create(filePath).Close();
     }
 
     [MenuItem("Build/Build Linux")]
