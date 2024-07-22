@@ -27,4 +27,26 @@ public static class Build
                 break;
         }
     }
+
+    [MenuItem("Build/Build Linux")]
+    public static void BuildLinux() {
+        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
+        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Main.unity" };
+        buildPlayerOptions.locationPathName = "Builds/Linux/" + BUILD_NAME;
+        buildPlayerOptions.target = BuildTarget.StandaloneLinux64;
+        buildPlayerOptions.options = BuildOptions.None;
+
+        BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
+        BuildSummary summary = report.summary;
+
+
+        switch (summary.result) {
+            case BuildResult.Succeeded:
+                Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
+                break;
+            case BuildResult.Failed:
+                Debug.Log("Build failed");
+                break;
+        }
+    }
 }
